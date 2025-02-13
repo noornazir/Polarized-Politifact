@@ -18,7 +18,6 @@ Rewrite the following Fox News headline in the style of MSNBC, ensuring that the
 
 Fox News: "{headline}"
 
-MSNBC:
 """
 
 
