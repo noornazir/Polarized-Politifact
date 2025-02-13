@@ -4,6 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Headline Rewriter</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='bg.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 1);
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .results {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .results p {
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #loading {
+            display: none;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #ddd;
+        }
+    </style>
     <script>
         async function rewriteHeadline() {
             const headline = document.getElementById("headline").value;
@@ -11,12 +75,19 @@
                 alert("Please enter a headline.");
                 return;
             }
+
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("results").innerHTML = "";
+
             const response = await fetch('/rewrite', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ headline })
             });
+
             const data = await response.json();
+            document.getElementById("loading").style.display = "none";
+
             document.getElementById("results").innerHTML = `
                 <h3>Rewritten Headline:</h3>
                 <p><b>Fox:</b> ${data.original}</p>
@@ -26,9 +97,14 @@
     </script>
 </head>
 <body>
-    <h1>Fox to MSNBC Chyron Rewriter</h1>
-    <input type="text" id="headline" placeholder="Enter a Fox News headline" style="width: 80%;">
-    <button onclick="rewriteHeadline()">Rewrite</button>
-    <div id="results"></div>
+
+    <div class="container">
+        <h1>Fox to MSNBC Chyron Rewriter</h1>
+        <input type="text" id="headline" placeholder="Enter a Fox News headline">
+        <button onclick="rewriteHeadline()">Rewrite</button>
+        <p id="loading">Rewriting headline, please wait...</p>
+        <div id="results" class="results"></div>
+    </div>
+
 </body>
 </html>
