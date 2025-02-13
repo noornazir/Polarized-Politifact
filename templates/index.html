@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headline Rewriter</title>
+    <script>
+        async function rewriteHeadline() {
+            const headline = document.getElementById("headline").value;
+            if (!headline) {
+                alert("Please enter a headline.");
+                return;
+            }
+            const response = await fetch('/rewrite', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ headline })
+            });
+            const data = await response.json();
+            document.getElementById("results").innerHTML = `
+                <h3>Rewritten Headline:</h3>
+                <p><b>Fox:</b> ${data.original}</p>
+                <p><b>MSNBC:</b> ${data.rewritten}</p>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <h1>Fox to MSNBC Headline Rewriter</h1>
+    <input type="text" id="headline" placeholder="Enter a Fox News headline" style="width: 80%;">
+    <button onclick="rewriteHeadline()">Rewrite</button>
+    <div id="results"></div>
+</body>
+</html>
