@@ -14,7 +14,7 @@ Rewrite the following Fox News headline in the style of MSNBC, ensuring that the
 - Avoid politically charged or polarizing terms like 'illegal immigrants'; instead, use more neutral or progressive phrasing where appropriate.
 - Maintain factual accuracy while adapting the framing, word choice, and emphasis to match MSNBC’s approach.
 - If MSNBC would likely cover this topic, provide a rewritten headline in their style.
-- If MSNBC is likely not to cover this story at all, respond with: 'NAH, MSNBC ain't covering this.'
+- If MSNBC is likely not to cover this story at all, respond with: 'NAH, MSNBC ain't covering this. Add (made by Noor Nazir) add the end'
 
 Fox News: "{headline}"
 
